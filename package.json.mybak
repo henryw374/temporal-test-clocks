@@ -1,7 +1,7 @@
 {
-  "name": "temporal-test-clock",
+  "name": "typescript-npm-package-template",
   "version": "0.0.0-development",
-  "description": "drop-in alternatives to the Temporal.Now clock for testing purposes",
+  "description": "A template for creating npm packages using TypeScript and VSCode",
   "main": "./lib/index.js",
   "files": [
     "lib/**/*"
@@ -19,27 +19,32 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/henryw374/temporal-test-clocks.git"
+    "url": "git+https://github.com/ryansonshine/typescript-npm-package-template.git"
   },
   "license": "MIT",
   "author": {
-    "name": "",
-    "email": "henry@widdindustries.com",
-    "url": "https://widdindustries.com"
+    "name": "Ryan Sonshine",
+    "email": "ryansonshine@users.noreply.github.com",
+    "url": "https://github.com/ryansonshine"
   },
   "engines": {
     "node": ">=12.0"
   },
   "keywords": [
-    "temporal",
-    "time",
-    "testing",
-    "clock"
+    "boilerplate",
+    "template",
+    "typescript",
+    "vscode",
+    "jest",
+    "husky",
+    "commitizen",
+    "semantic-release",
+    "codecov"
   ],
   "bugs": {
-    "url": "https://github.com/henryw374/temporal-test-clocks/issues"
+    "url": "https://github.com/ryansonshine/typescript-npm-package-template/issues"
   },
-  "homepage": "https://github.com/henryw374/temporal-test-clock#readme",
+  "homepage": "https://github.com/ryansonshine/typescript-npm-package-template#readme",
   "devDependencies": {
     "@ryansonshine/commitizen": "^4.2.8",
     "@ryansonshine/cz-conventional-changelog": "^3.3.4",
@@ -113,8 +118,5 @@
       "@semantic-release/npm",
       "@semantic-release/github"
     ]
-  },
-  "dependencies": {
-    "proposal-temporal": "https://gitpkg.vercel.app/tc39/proposal-temporal/polyfill?main"
   }
 }
