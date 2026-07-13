@@ -1,65 +1,63 @@
-
----
-
 # temporal-test-clocks
+
+A Typescript library that provides a drop-in replacement for Temporal.Now,
+enabling you to avoid directly referencing it, so that your now-referencing code can become testable.
 
 [![npm package][npm-img]][npm-url]
 [![Build Status][build-img]][build-url]
-[![Downloads][downloads-img]][downloads-url]
-[![Issues][issues-img]][issues-url]
-[![Code Coverage][codecov-img]][codecov-url]
-[![Commitizen Friendly][commitizen-img]][commitizen-url]
-[![Semantic Release][semantic-release-img]][semantic-release-url]
 
-> Temporal Test Clocks
 
 ## Install
 
 ```bash
-npm install temporal-test-clocks
+npm install @widdindustries/temporal-test-clock
 ```
 
 ## Usage
 
+### Production/non-test code
+
 ```ts
-import * from 'temporal-test-clocks';
 
-myPackage('hello');
-//=> 'hello from my package'
+
+function doSomethingReferencingNow(clock: typeof Temporal.Now) {
+    // The following line could have been `Temporal.Now.plainDateISO()` but 
+    // that would make testing difficult
+  return clock.plainDateISO();
+}
+
+// at the point of initiation
+const clock = Temporal.Now;
+
+// ... anywhere in the code that needs 'now' is passed a reference to the `clock`
+
+ doSomethingReferencingNow(clock);
+ ```
+
+### Test Code
+
+ ```ts
+
+ import { Clock, fixed_UTC } from '@widdindustries/temporal-test-clock';
+
+const aFixedClock = fixed_UTC(
+  Temporal.Instant.from('2020-01-02T03:04:05.123456789Z')
+);
+const resultWithFixedClock = doSomethingReferencingNow(aFixedClock);
+
+
+let changingTime = Temporal.Instant.from('2020-01-02T03:04:05.123456789Z')
+
+const doesAnythingYouWantClock = new Clock(
+  () => changingTime,
+  () => Temporal.Now.timeZoneId()
+);
+const initialResult = doSomethingReferencingNow(doesAnythingYouWantClock);
+//... simulate passing of time for example
+const duration = Temporal.Duration.from("PT1S");
+changingTime = changingTime.add(duration);
+
+const subsequentResult = doSomethingReferencingNow(doesAnythingYouWantClock);
+
+
 ```
-
-## API
-
-### myPackage(input, options?)
-
-#### input
-
-Type: `string`
-
-Lorem ipsum.
-
-#### options
-
-Type: `object`
-
-##### postfix
-
-Type: `string`
-Default: `rainbows`
-
-Lorem ipsum.
-
-[build-img]:https://github.com/ryansonshine/typescript-npm-package-template/actions/workflows/release.yml/badge.svg
-[build-url]:https://github.com/ryansonshine/typescript-npm-package-template/actions/workflows/release.yml
-[downloads-img]:https://img.shields.io/npm/dt/typescript-npm-package-template
-[downloads-url]:https://www.npmtrends.com/typescript-npm-package-template
-[npm-img]:https://img.shields.io/npm/v/typescript-npm-package-template
-[npm-url]:https://www.npmjs.com/package/typescript-npm-package-template
-[issues-img]:https://img.shields.io/github/issues/ryansonshine/typescript-npm-package-template
-[issues-url]:https://github.com/ryansonshine/typescript-npm-package-template/issues
-[codecov-img]:https://codecov.io/gh/ryansonshine/typescript-npm-package-template/branch/main/graph/badge.svg
-[codecov-url]:https://codecov.io/gh/ryansonshine/typescript-npm-package-template
-[semantic-release-img]:https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
-[semantic-release-url]:https://github.com/semantic-release/semantic-release
-[commitizen-img]:https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
-[commitizen-url]:http://commitizen.github.io/cz-cli/

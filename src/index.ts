@@ -1,9 +1,13 @@
-import { Temporal } from 'proposal-temporal';
-// is there a way to check test clocks conform to actual clock? runtime type check?
-
 type NowInterface = typeof Temporal.Now;
 
-class Clock implements NowInterface {
+/**
+ * a drop-in replacement for Temporal.Now that can be used for testing purposes.
+ *
+ * a fixed clock can be created with the `fixed_UTC`, or a custom clock can be created with the `Clock` constructor,
+ * which could do anything you want, including manipulating the time or zone as a test progresses.
+ * .
+ */
+export class Clock implements NowInterface {
   getInstant;
   getTimeZoneId;
 
@@ -13,7 +17,7 @@ class Clock implements NowInterface {
   }
 
   get [Symbol.toStringTag]() {
-    return 'Temporal.Now' as any;
+    return 'Clock' as any;
   }
 
   instant(): Temporal.Instant {
@@ -23,28 +27,28 @@ class Clock implements NowInterface {
   zonedDateTimeISO(tzLike?: Temporal.TimeZoneLike): Temporal.ZonedDateTime {
     return new Temporal.ZonedDateTime(
       this.getInstant().epochNanoseconds,
-      tzLike || this.getTimeZoneId()
+      tzLike?.toString() || this.getTimeZoneId()
     );
   }
 
   plainDateTimeISO(tzLike?: Temporal.TimeZoneLike): Temporal.PlainDateTime {
     return new Temporal.ZonedDateTime(
       this.getInstant().epochNanoseconds,
-      tzLike || this.getTimeZoneId()
+      tzLike?.toString() || this.getTimeZoneId()
     ).toPlainDateTime();
   }
 
   plainDateISO(tzLike?: Temporal.TimeZoneLike): Temporal.PlainDate {
     return new Temporal.ZonedDateTime(
       this.getInstant().epochNanoseconds,
-      tzLike || this.getTimeZoneId()
+      tzLike?.toString() || this.getTimeZoneId()
     ).toPlainDate();
   }
 
   plainTimeISO(tzLike?: Temporal.TimeZoneLike): Temporal.PlainTime {
     return new Temporal.ZonedDateTime(
       this.getInstant().epochNanoseconds,
-      tzLike || this.getTimeZoneId()
+      tzLike?.toString() || this.getTimeZoneId()
     ).toPlainTime();
   }
 
@@ -52,8 +56,6 @@ class Clock implements NowInterface {
     return this.getTimeZoneId();
   }
 }
-
-export const myPackage = (taco = ''): string => `${taco} from my package`;
 
 export function fixed_UTC(instant: Temporal.Instant): Clock {
   return new Clock(
