@@ -1,8 +1,8 @@
 {
   "name": "@widdindustries/temporal-test-clock",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "provides a drop-in replacement for Temporal.Now, for testing purposes",
-  "main": "./lib/index.js",
+  "main": "./lib/src/index.js",
   "files": [
     "lib/**/*"
   ],
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/henryw374/temporal-test-clocks.git"
+    "url": "git+https://github.com/henryw374/temporal-test-clock.git"
   },
   "license": "MIT",
   "author": {
@@ -37,9 +37,9 @@
     "clock"
   ],
   "bugs": {
-    "url": "https://github.com/henryw374/temporal-test-clocks/issues"
+    "url": "https://github.com/henryw374/temporal-test-clock/issues"
   },
-  "homepage": "https://github.com/henryw374/temporal-test-clocks#readme",
+  "homepage": "https://github.com/henryw374/temporal-test-clock#readme",
   "devDependencies": {
     "@ryansonshine/commitizen": "^4.2.8",
     "@ryansonshine/cz-conventional-changelog": "^3.3.4",

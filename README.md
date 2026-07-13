@@ -1,10 +1,7 @@
-# temporal-test-clocks
+# temporal-test-clock
 
 A Typescript library that provides a drop-in replacement for Temporal.Now,
 enabling you to avoid directly referencing it, so that your now-referencing code can become testable.
-
-[![npm package][npm-img]][npm-url]
-[![Build Status][build-img]][build-url]
 
 
 ## Install
