@@ -58,3 +58,10 @@ const subsequentResult = doSomethingReferencingNow(doesAnythingYouWantClock);
 
 
 ```
+
+## License
+
+Copyright © 2026 [Widd Industries](http://widdindustries.com/about/)
+
+Distributed under the [MIT License](/LICENSE)
+
