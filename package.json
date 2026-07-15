@@ -1,6 +1,6 @@
 {
   "name": "@widdindustries/temporal-test-clock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "provides a drop-in replacement for Temporal.Now, for testing purposes",
   "main": "./lib/src/index.js",
   "files": [

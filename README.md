@@ -23,7 +23,7 @@ function doSomethingReferencingNow(clock: typeof Temporal.Now) {
   return clock.plainDateISO();
 }
 
-// at the point of initiation
+// ... at the point of (system) initiation
 const clock = Temporal.Now;
 
 // ... anywhere in the code that needs 'now' is passed a reference to the `clock`
